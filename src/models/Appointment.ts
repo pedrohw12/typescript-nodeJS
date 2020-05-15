@@ -1,22 +1,15 @@
-import { uuid } from 'uuidv4';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-interface AppointmentConstructor {
-  provider: string;
-  date: Date;
-}
-
+@Entity('appointments') // diz que esse model será salvo na tabela 'appointments'
 class Appointment {
+  @PrimaryGeneratedColumn('uuid')
   id: String;
 
+  @Column()
   provider: String;
 
+  @Column('timestamp with time zone') // se não for Postgres - colocar 'timestamp'
   date: Date;
-
-  constructor({ provider, date }: Omit<Appointment, 'id'>) {
-    this.id = uuid();
-    this.provider = provider;
-    this.date = date;
-  }
 }
 
 export default Appointment;
