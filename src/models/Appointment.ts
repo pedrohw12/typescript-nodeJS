@@ -4,7 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+
+import User from './User';
 
 @Entity('appointments') // diz que esse model será salvo na tabela 'appointments'
 class Appointment {
@@ -12,7 +16,11 @@ class Appointment {
   id: string;
 
   @Column()
-  provider: string;
+  provider_id: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'provider_id' })
+  provider: User;
 
   @Column('timestamp with time zone') // se não for Postgres - colocar 'timestamp'
   date: Date;
